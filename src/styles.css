@@ -15,3 +15,9 @@ body{
   margin: 20px;
   display:flex ;
 }
+.highlight {
+  background-color: #b07fe0;
+  border: 1px solid darkblue;
+  z-index: 1;
+  transform: scale(1.01);
+}
