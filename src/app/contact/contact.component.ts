@@ -2,11 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 import {formErrors} from "../shared/formErrors";
+import {flyInOut} from "../animations/app.animation";
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  styleUrls: ['./contact.component.css'],
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+  },
+  animations: [
+    flyInOut()
+    ]
 })
 export class ContactComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective: any ;

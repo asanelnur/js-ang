@@ -5,13 +5,24 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
+import {expand, flyInOut, visibility} from '../animations/app.animation';
+
 
 
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.css']
+  styleUrls: ['./dishdetail.component.css'],
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+  },
+  animations: [
+    flyInOut(),
+    visibility(),
+    expand()
+  ]
 })
 export class DishdetailComponent implements OnInit {
   dish!: Dish;
@@ -24,6 +35,7 @@ export class DishdetailComponent implements OnInit {
   dishcopy!: Dish;
   @ViewChild('cform') commentFormDirective: any;
   @ViewChild('fform') formDirective!: NgForm;
+  visibility = 'shown';
 
   formErrors:any = {
     'author': '',
@@ -48,8 +60,8 @@ export class DishdetailComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
-    this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish;this.dishcopy = dish, this.setPrevNext(dish.id); },
+    this.route.params.pipe(switchMap((params: Params) => { this.visibility = 'hidden'; return this.dishservice.getDish(+params['id']); }))
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); this.visibility = 'shown'; },
         errmess => this.errMess = <any>errmess);
   }
   setPrevNext(dishId: string) {

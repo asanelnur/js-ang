@@ -1,3 +1,4 @@
+// json-server --watch db.json -d 2000 -p 3001
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
