@@ -1,0 +1,60 @@
+<div *ngIf="dish" class="container"
+    fxLayout="row wrap"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutAlign.gt-md="space-around center"
+    fxLayoutGap="10px"
+    fxLayoutGap.xs="0">
+  <div fxFlex="100">
+    <div>
+      <h3 *ngIf="dish">{{dish.name | uppercase}}</h3>
+      <hr>
+    </div>
+  </div>
+  <div fxFlex="40" >
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <h3 *ngIf="dish">{{dish.name | uppercase}}</h3>
+        </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="{{BaseURL + dish.image}}" alt={{dish.name}}>
+      <mat-card-content>
+        <p>{{dish.description}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button [routerLink]="['/dishdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+        <button mat-button (click)="goBack()">BACK</button>
+        <button mat-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div fxFlex="40">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <h3>{{"COMMENTS" | uppercase}}</h3>
+        </mat-card-title>
+      </mat-card-header>
+    </mat-card>
+    <mat-list>
+      <mat-list-item *ngFor="let com of dish.comments">
+        <h1 matLine>{{com.comment}}</h1>
+        <p matLine><span>
+          {{com.rating}} --{{com.author}}             {{com.date | date:'MMM d, y'}}
+        </span></p>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+</div>
+<div [hidden]="dish || errMess">
+  <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+</div>
+<div fxFlex *ngIf="errMess">
+  <h2>Error</h2>
+  <h4>{{errMess}}</h4>
+</div>
