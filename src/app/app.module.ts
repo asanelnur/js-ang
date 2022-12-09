@@ -34,6 +34,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {HttpClientModule} from "@angular/common/http";
 import { baseURL } from './shared/baseurl';
 import {ProcessHTTPMsgService} from "./services/process-httpmsg.service";
+import {MatSliderModule} from "@angular/material/slider";
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import {ProcessHTTPMsgService} from "./services/process-httpmsg.service";
     MatSlideToggleModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSliderModule
   ],
   providers: [
     DishService,
